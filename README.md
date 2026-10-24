@@ -5,7 +5,10 @@ Code for my BT4012 in-class Kaggle submission. The task is to predict the probab
 | Submission | Formula | Public AUC |
 |---|---|---|
 | `submission_tabm_blend33.csv` (primary) | (2/3)·B + (1/3)·T | 0.95358 |
-| `submission_tabm_ple_uniform_blend50.csv` | 0.5·B + 0.5·T | 0.95340 |
+| `submission_tabm_ple_uniform_standalone.csv` (second) | T | 0.95034 |
+| `submission_tabm_ple_uniform_blend50.csv` (not selected, for reference) | 0.5·B + 0.5·T | 0.95340 |
+
+The second selection is TabM on its own: only the better of the two private scores counts, and T ranks the test set most differently from the primary (rank correlation 0.90) while being the strongest model on the long 14-step validation fold.
 
 - **B**: recency-weighted LightGBM → three-class annotation-status model → availability-matched graph LightGBM → directed message-passing network (0.95261 alone)
 - **T**: five-seed TabM on the raw 165 features (0.95034 alone)
@@ -20,7 +23,7 @@ src/messages/             stage 4: graph caches + directed message-passing netwo
 src/tabm/                 model T: TabM training (inner epoch selection + final 5-seed fit)
 notebooks/eda.ipynb       exploratory data analysis
 notebooks/baseline.ipynb  first LightGBM baseline and temporal validation
-submissions/              the two submitted CSVs (for comparison)
+submissions/              the selected CSVs + the 50/50 blend (for comparison)
 ```
 
 Every script starts with a docstring describing what it does, its inputs/outputs and where it fits in the pipeline. Key steps are commented in the code.
@@ -34,7 +37,7 @@ Every script starts with a docstring describing what it does, its inputs/outputs
 | 3 | `src/messages/prepare_caches.py`, `src/graph/finalize_graph.py` | Graph features over 6 neighbour types (1,187 columns), with unknown training rows' features hidden to match test; blended 20% in probability | 0.95210 |
 | 4 | `src/messages/learned_messages/finalize_probe.py` | Small message-passing network with masked-feature pretraining; blended 20% in log-odds → **B** | 0.95261 |
 | T | `src/tabm/train_tabm.py` | TabM on the raw 165 features, uniform weights, 5 seeds → **T** | 0.95034 alone |
-| Final | notebook section 7 | (2/3)·B + (1/3)·T and 0.5·B + 0.5·T | 0.95358 / 0.95340 |
+| Final | notebook section 7 | primary (2/3)·B + (1/3)·T; second T alone; 0.5·B + 0.5·T for reference | 0.95358 / 0.95034 / 0.95340 |
 
 Each stage refits on all labelled steps 1–35, saves its models, reloads them and checks the predictions and CSV are reproduced exactly. The `*_lock.json` files record which variant and blend formula were chosen on validation before the final fit.
 
