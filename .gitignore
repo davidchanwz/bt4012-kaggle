@@ -1,0 +1,12 @@
+data/
+cache/
+runs/
+submissions_rebuilt/
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+*.pt
+*.joblib
+*.pkl
+notebooks/*.csv

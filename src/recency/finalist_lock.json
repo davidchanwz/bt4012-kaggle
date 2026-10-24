@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-15",
+  "candidates": [
+    "logit_annotation3",
+    "blend_domain"
+  ],
+  "status": "exploratory, not established improvements",
+  "selection_rationale": {
+    "logit_annotation3": "Highest mean recent-fold AUC among the fixed blends, but its gain is concentrated in one fold. It tests whether the supplied unknown rows add complementary information.",
+    "blend_domain": "Tiny positive changes on all three recent folds; tests future-feature covariate adaptation while retaining half of the reference probability."
+  },
+  "excluded_despite_positive_results": {
+    "rank_finetune": "Positive on all three recent folds but tiny changes; less distinct as a new source of information than the selected probes.",
+    "blend_leaf63": "Comparable tiny gain from capacity diversity; no clear advantage over the reference or selected mechanisms."
+  },
+  "fixed_blends": {
+    "logit_annotation3": "sigmoid(0.8*logit(reference)+0.2*logit(annotation-conditioned-known probability))",
+    "blend_domain": "0.5*reference+0.5*domain-reweighted classifier"
+  },
+  "extra_cutoffs": [
+    [
+      27,
+      30
+    ],
+    [
+      32,
+      35
+    ],
+    [
+      20,
+      35
+    ]
+  ],
+  "note": "Shortlist fixed before additional-cutoff results. No changes to blend weights based on those checks."
+}

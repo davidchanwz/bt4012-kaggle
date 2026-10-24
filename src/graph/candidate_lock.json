@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-16",
+  "candidate": "matched_relations_logit20",
+  "graph_policy": "matched",
+  "feature_set": "relations",
+  "formula": "sigmoid(0.8*logit(incumbent_unknown_row_blend)+0.2*logit(mean_graph_probability))",
+  "clip": [1e-7, 0.9999999],
+  "primary_graph_blend_auc": [0.9972739184162647, 0.9983742800903989, 0.9986403089663959],
+  "primary_incumbent_auc": [0.9972172544197917, 0.9981798741221355, 0.9984185379837553],
+  "reason": "All three primary folds improve; richer masked relation context contributes more to the fixed blend than direct context. The formula is frozen before additional cutoff checks. Remaining neural and reconstruction controls are completing; this lock does not depend on their last results.",
+  "additional_checks": ["32:35", "20:35"],
+  "final_seeds": [0, 1, 2, 3, 4],
+  "caveat": "Near-saturated, overlapping local folds; no public or private score for this candidate."
+}

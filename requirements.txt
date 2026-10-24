@@ -1,0 +1,14 @@
+numpy==2.5.4
+pandas==3.0.6
+scipy==1.18.1
+scikit-learn==1.9.1
+lightgbm==4.7.0
+torch==2.14.1
+joblib==1.6.0
+catboost==1.2.10
+xgboost==3.4.1
+tabm==0.0.3
+rtdl_num_embeddings==0.0.12
+matplotlib
+seaborn
+ipykernel

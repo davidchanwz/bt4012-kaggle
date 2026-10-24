@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-18",
+  "candidate": "pretrained_logit20",
+  "reason": "Highest primary mean among the predeclared neural formulas; 2/3 primary wins and positive ten-period blend gain. Standalone neural predictions are substantially weaker and seed stability is a limitation.",
+  "formula": "sigmoid(0.8*logit(clip(current_best,1e-7,1-1e-7))+0.2*logit(clip(mean_neural_probability,1e-7,1-1e-7)))",
+  "checks_to_run": [
+    "21:35",
+    "32:35"
+  ],
+  "screen_seeds": [
+    0,
+    1,
+    2
+  ],
+  "final_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "no_kaggle_upload": true,
+  "hybrid_results_seen": false
+}
